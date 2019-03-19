@@ -16,9 +16,10 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "pm2 start src/app.js",
-    "stop": "pm2 stop src/app.js",
-    "dev": "nodemon src/app.js"
+    "install": "node ./bin/install",
+    "start": "pm2 start ./bin/run",
+    "stop": "pm2 stop ./bin/run",
+    "dev": "nodemon ./bin/run"
   },
   "repository": {
     "type": "git",

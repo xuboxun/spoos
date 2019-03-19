@@ -26,10 +26,11 @@ app
 
 app.use(async (ctx, next) => {
     ctx.body = {
-        code: 404
+        code: 404,
+        msg: '404 not found',
+        data: null
     }
 });
 
 
-
-app.listen(3000);
+module.exports = app;

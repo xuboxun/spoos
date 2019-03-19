@@ -1,0 +1,14 @@
+{
+  "db_type": "mysql",
+  "db_host": "localhost",
+  "db_port": 3306,
+  "db_name": "spoos",
+  "db_username": "root",
+  "db_password": "",
+
+  "app_port": 9981,
+
+  "spoos_dir": "/Users/xuboxun/Data/spoos",
+
+  "www_dir": "/usr/local/var/www"
+}
