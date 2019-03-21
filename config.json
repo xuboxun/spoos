@@ -10,5 +10,7 @@
 
   "spoos_dir": "/Users/xuboxun/Data/spoos",
 
+  "log_dir": "/Users/xuboxun/.spoos/log",
+
   "www_dir": "/usr/local/var/www"
 }

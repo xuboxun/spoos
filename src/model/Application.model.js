@@ -13,6 +13,11 @@ const ApplicationModel = sequelize.define('application', {
         allowNull: false,
         unique: true
     },
+    appName: {
+        type: Sequelize.STRING(100),
+        allowNull: false,
+        unique: true
+    },
     appSecret: {
         type: Sequelize.STRING(100),
         allowNull: false,
