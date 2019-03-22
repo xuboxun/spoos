@@ -1,6 +1,8 @@
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const router = require('./router');
+const auth = require('./utils/auth');
+const response = require('./utils/response');
 
 const app = new Koa();
 
@@ -21,15 +23,12 @@ app.use(async (ctx, next) => {
 
 app
     .use(bodyParser())
+    .use(auth)
     .use(router.routes())
     .use(router.allowedMethods());
 
 app.use(async (ctx, next) => {
-    ctx.body = {
-        code: 404,
-        msg: '404 not found',
-        data: null
-    }
+    ctx.body = response(404, 'not found', null);
 });
 
 

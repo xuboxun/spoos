@@ -4,7 +4,7 @@
   "db_port": 3306,
   "db_name": "spoos",
   "db_username": "root",
-  "db_password": "",
+  "db_password": "root806119",
 
   "app_port": 9981,
 

@@ -1,10 +1,17 @@
+const response = require('../utils/response');
+
 
 class ApplicationController {
+    apply(ctx) {
+        console.log(ctx.request.body);
+        ctx.body = response(200, 'success', {});
+    }
+
     approve(ctx, next) {
 
     }
 
-    apply(ctx, next) {
+    checkName(ctx, next) {
 
     }
 

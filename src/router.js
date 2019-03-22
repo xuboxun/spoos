@@ -5,24 +5,13 @@ const ObjectController = require('./controller/object');
 
 const router = new Router();
 
-const userAuth = (ctx, next) => {
-    next();
-};
-
-
 router.prefix('/api');
-
-router.use([
-    '/application/apply',
-    '/application/approve',
-    '/application/list',
-    '/object/list',
-], userAuth);
 
 router.post('/auth', AuthController.auth);
 
 router.post('/application/apply', ApplicationController.apply);
 router.post('/application/approve', ApplicationController.approve);
+router.post('/application/checkName', ApplicationController.checkName);
 router.get('/application/list', ApplicationController.list);
 
 router.get('/object/list', ObjectController.list);
