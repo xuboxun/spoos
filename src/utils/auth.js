@@ -12,13 +12,13 @@ async function auth(ctx, next) {
     if (authPath.indexOf(url) > -1) {
         console.log(`need auth: ${url}`);
         // todo: auth校验
-        const authRes = false;
+        const authRes = true;
         if (!authRes) {
             ctx.body = response(401, 'unauthorized', null)
             return false;
         }
     }
-    next();
+    await next();
 }
 
 

@@ -9,9 +9,9 @@ router.prefix('/api');
 
 router.post('/auth', AuthController.auth);
 
+router.get('/application/checkName', ApplicationController.checkName);
 router.post('/application/apply', ApplicationController.apply);
 router.post('/application/approve', ApplicationController.approve);
-router.post('/application/checkName', ApplicationController.checkName);
 router.get('/application/list', ApplicationController.list);
 
 router.get('/object/list', ObjectController.list);

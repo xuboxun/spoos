@@ -8,6 +8,10 @@ const ApplicationModel = sequelize.define('application', {
         autoIncrement: true,
         primaryKey: true
     },
+    ownerId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+    },
     appKey: {
         type: Sequelize.STRING(100),
         allowNull: false,
@@ -32,6 +36,10 @@ const ApplicationModel = sequelize.define('application', {
     updateTime: {
         type: Sequelize.BIGINT(20),
     }
+}, {
+    freezeTableName: true,
+    tableName: 'application',
+    timestamps: false
 });
 
 module.exports = ApplicationModel;
