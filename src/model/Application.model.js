@@ -8,10 +8,6 @@ const ApplicationModel = sequelize.define('application', {
         autoIncrement: true,
         primaryKey: true
     },
-    ownerId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-    },
     appKey: {
         type: Sequelize.STRING(100),
         allowNull: false,
@@ -28,6 +24,12 @@ const ApplicationModel = sequelize.define('application', {
     },
     appInfo: {
         type: Sequelize.STRING(100)
+    },
+    // 应用状态：1: 已生效，0:已删除
+    status: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        default: 1
     },
     createTime: {
         type: Sequelize.BIGINT(20),

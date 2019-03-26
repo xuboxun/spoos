@@ -10,9 +10,9 @@ router.prefix('/api');
 router.post('/auth', AuthController.auth);
 
 router.get('/application/checkName', ApplicationController.checkName);
-router.post('/application/apply', ApplicationController.apply);
-router.post('/application/approve', ApplicationController.approve);
+router.post('/application/create', ApplicationController.create);
 router.get('/application/list', ApplicationController.list);
+router.delete('/application/:appKey', ApplicationController.delete);
 
 router.get('/object/list', ObjectController.list);
 router.get('/object/:appKey/:objectKey', ObjectController.get);
