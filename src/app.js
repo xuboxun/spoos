@@ -1,8 +1,9 @@
 const Koa = require('koa');
-const bodyParser = require('koa-bodyparser');
+const koaBody = require('koa-body');
 const router = require('./router');
 const auth = require('./utils/auth');
 const response = require('./utils/response');
+const CONF = require('../config');
 
 const app = new Koa();
 
@@ -22,7 +23,16 @@ app.use(async (ctx, next) => {
 });
 
 app
-    .use(bodyParser())
+    .use(koaBody({
+        multipart: true,
+        formidable: {
+            maxFileSize: CONF.maxFileSize,
+            multiples: true,
+            uploadDir: `${CONF.store_dir}/tmp`,
+            keepExtensions: true,
+            hash: 'md5'
+        }
+    }))
     .use(auth)
     .use(router.routes())
     .use(router.allowedMethods());

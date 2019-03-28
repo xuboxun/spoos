@@ -24,8 +24,18 @@ const ObjectModel = sequelize.define('object', {
         type: Sequelize.STRING(100),
         allowNull: false,
     },
-    objectMeta: {
-        type: Sequelize.STRING(200)
+    objectSize: {
+        type: Sequelize.INTEGER,
+    },
+    hash: {
+        type: Sequelize.STRING(32),
+        allowNull: false
+    },
+    // 状态：1: 有效，0:已删除
+    status: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 1,
     },
     createTime: {
         type: Sequelize.BIGINT(20),

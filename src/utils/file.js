@@ -35,8 +35,17 @@ function createAppDir(appKey) {
 }
 
 // 写文件、存储对象
-function saveFile() {
-
+function saveFile(file, newPath) {
+    if (!file || !newPath) {
+        return false;
+    }
+    try {
+        fs.renameSync(file.path, `${storePath}/${newPath}`);
+        return true;
+    } catch (e) {
+        log(e);
+        return false;
+    }
 }
 
 module.exports = {

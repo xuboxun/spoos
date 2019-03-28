@@ -29,7 +29,7 @@ const ApplicationModel = sequelize.define('application', {
     status: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        default: 1
+        defaultValue: 1
     },
     createTime: {
         type: Sequelize.BIGINT(20),
