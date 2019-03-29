@@ -1,11 +1,21 @@
-const Sequelize = require('sequelize');
-const sequelize = require('../utils/sequelize');
+const UserModel = require('../model/User.model');
+const CONF = require('../../config');
+const log = require('../utils/log');
+
 
 
 class UserService {
     // 检查账户和秘码对
-    checkPair() {
-
+    async checkAccountPassword(account, password) {
+        return await UserModel.findOne({
+            where: {
+                account: account,
+                password: password
+            }
+        }).catch(err => {
+            log(err);
+            return null;
+        });
     }
 }
 
