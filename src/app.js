@@ -28,7 +28,7 @@ app
         formidable: {
             maxFileSize: CONF.maxFileSize,
             multiples: true,
-            uploadDir: `${CONF.store_dir}/tmp`,
+            uploadDir: `${CONF.store_dir}/.tmp`,
             keepExtensions: true,
             hash: 'md5'
         }

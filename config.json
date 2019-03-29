@@ -8,14 +8,12 @@
 
   "app_port": 9981,
 
-  "plugin_nginx": true,
-  "domain": "spoos.xuboxun.site",
-
   "store_dir": "/Users/xuboxun/Data/spoos",
 
   "log_dir": "/Users/xuboxun/.spoos/log",
 
-  "www_dir": "/usr/local/var/www",
+  "maxFileSize": 104857600,
 
-  "maxFileSize": 104857600
+  "plugin_nginx": true,
+  "domain": "spoos.xuboxun.site"
 }

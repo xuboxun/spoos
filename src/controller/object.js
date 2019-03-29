@@ -84,7 +84,7 @@ class ObjectController {
         // 写入数据库
         const dbRes = await ObjectService.createObject(object);
         if (!dbRes) {
-            ctx.body = response(500, 'database error');
+            ctx.body = response(500, 'create failed');
             return false;
         }
         const res = {
