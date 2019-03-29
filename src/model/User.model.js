@@ -24,7 +24,10 @@ const UserModel = sequelize.define('user', {
     updateTime: {
         type: Sequelize.BIGINT(20),
     }
-
+}, {
+    freezeTableName: true,
+    tableName: 'user',
+    timestamps: false
 });
 
 module.exports = UserModel;

@@ -1,5 +1,6 @@
 const send = require('koa-send');
 const ObjectService = require('../service/Object.service');
+const ApplicationService = require('../service/Application.service');
 const response = require('../utils/response');
 const { ListFormat } = require('../utils/format');
 const { saveFile } = require('../utils/file');
@@ -7,11 +8,23 @@ const generateKey = require('../utils/generateKey');
 const CONF = require('../../config');
 
 class ObjectController {
-    async get(ctx, next) {
+    async get(ctx) {
         const { appKey, objectKey } = ctx.params;
-        const objectPath = `${appKey}/${objectKey}`;
-        console.log(objectPath);
-        await send(ctx, objectPath, {
+
+        const application = await ApplicationService.getAppByKey(appKey);
+        if (!application) {
+            ctx.body = response(400, 'application does not exist');
+            return false;
+        }
+
+        const object = await ObjectService.getTheObject(appKey, objectKey);
+        if (!object) {
+            ctx.body = response(400, 'object does not exist');
+            return false;
+        }
+
+        const path = `${appKey}/${object.objectName}`;
+        await send(ctx, path, {
             root: CONF.store_dir
         });
     }
@@ -26,34 +39,60 @@ class ObjectController {
     }
 
     async post(ctx) {
+        const { host } = ctx.request.header;
         const { appKey } = ctx.params;
         const { appSecret } = ctx.request.body;
         const files = ctx.request.files.files;
-        console.log(appKey, appSecret);
-        console.log(files);
 
-        // todo: 检测appKey是否存在且和appSecret是否匹配
+        if (!appKey || !appSecret || !files) {
+            ctx.body = response(400, 'request error');
+            return false;
+        }
+
+        // 检测appKey是否存在且和appSecret是否匹配
+        const check = await ApplicationService.checkAppKeySecret(appKey, appSecret);
+        if (!check) {
+            ctx.body = response(400, 'appKey and appSecret not match');
+            return false;
+        }
+
+        // 构建新object
         const key = generateKey();
-        const ext = files.name.replace(/(\S*)\.([a-zA-Z0-9]+)$/g, '$2');
+        const name = files.name.replace(/(.*)\.([a-zA-Z0-9]+)$/g, '$1');
+        const ext = files.name.replace(/(.*)\.([a-zA-Z0-9]+)$/g, '$2');
         const object = {
-            objectKey: `${key}.${ext}`,
-            objectType: files.type,
-            objectName: files.name,
-            objectSize: files.size,
+            appKey: appKey,
+            objectKey: key,
+            objectName: `${key}.${ext}`,
+            sourceName: name,
+            type: files.type,
+            size: files.size,
             hash: files.hash,
             status: 1,
             createTime: +(new Date()),
             updateTime: null
         };
-        const newPath = `${appKey}/${object.objectKey}`;
+
+        // 存文件
+        const newPath = `${appKey}/${object.objectName}`;
         const saveRes = saveFile(files, newPath);
         if (!saveRes) {
             ctx.body = response(500, 'save file failed', null);
+            return false;
         }
 
-        // todo: 写数据库
-
-        ctx.body = response(200, 'ok', object);
+        // 写入数据库
+        const dbRes = await ObjectService.createObject(object);
+        if (!dbRes) {
+            ctx.body = response(500, 'database error');
+            return false;
+        }
+        const res = {
+            object: dbRes,
+            apiPath: `${host}/api/object/${appKey}/${object.objectKey}`,
+            nginxPath: CONF.plugin_nginx ? `${CONF.domain}/${appKey}/${object.objectName}` : undefined
+        };
+        ctx.body = response(200, 'ok', res);
     }
 
     put(ctx, next) {

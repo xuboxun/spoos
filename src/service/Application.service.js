@@ -29,6 +29,18 @@ class ApplicationService {
             return null;
         });
     }
+    async checkAppKeySecret(appKey, appSecret) {
+        return await ApplicationModel.findOne({
+            where: {
+                appKey: appKey,
+                appSecret: appSecret,
+                status: 1
+            }
+        }).catch(err => {
+            log(err);
+            return null;
+        });
+    }
     async getAppList(query = { pageSize: 10, pageNum: 1 }) {
         return await ApplicationModel.findAndCountAll({
             where: {

@@ -8,8 +8,8 @@ const ObjectModel = sequelize.define('object', {
         autoIncrement: true,
         primaryKey: true
     },
-    appId: {
-        type: Sequelize.INTEGER,
+    appKey: {
+        type: Sequelize.STRING(100),
         allowNull: false,
     },
     objectKey: {
@@ -17,15 +17,21 @@ const ObjectModel = sequelize.define('object', {
         allowNull: false,
         unique: true
     },
-    objectType: {
-        type: Sequelize.STRING(100),
-    },
     objectName:  {
         type: Sequelize.STRING(100),
         allowNull: false,
     },
-    objectSize: {
+    sourceName:  {
+        type: Sequelize.STRING(100),
+        allowNull: false,
+    },
+    type: {
+        type: Sequelize.STRING(100),
+        allowNull: false
+    },
+    size: {
         type: Sequelize.INTEGER,
+        allowNull: false
     },
     hash: {
         type: Sequelize.STRING(32),
@@ -44,6 +50,10 @@ const ObjectModel = sequelize.define('object', {
     updateTime: {
         type: Sequelize.BIGINT(20),
     }
+}, {
+    freezeTableName: true,
+    tableName: 'object',
+    timestamps: false
 });
 
 module.exports = ObjectModel;
