@@ -2,7 +2,7 @@ const fs = require('fs');
 const CONF = require('../../config');
 const log = require('../utils/log');
 
-const storePath = CONF.store_dir;
+const storePath = CONF.storeDir;
 
 
 function dirExist(dir) {

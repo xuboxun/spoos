@@ -25,7 +25,7 @@ class ObjectController {
 
         const path = `${appKey}/${object.objectName}`;
         await send(ctx, path, {
-            root: CONF.store_dir
+            root: CONF.storeDir
         });
     }
 
@@ -90,7 +90,7 @@ class ObjectController {
         const res = {
             object: dbRes,
             apiPath: `${host}/api/object/${appKey}/${object.objectKey}`,
-            nginxPath: CONF.plugin_nginx ? `${CONF.domain}/${appKey}/${object.objectName}` : undefined
+            nginxPath: CONF.pluginNginx ? `${CONF.domain}/${appKey}/${object.objectName}` : undefined
         };
         ctx.body = response(200, 'ok', res);
     }

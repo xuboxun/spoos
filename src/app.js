@@ -26,9 +26,9 @@ app
     .use(koaBody({
         multipart: true,
         formidable: {
-            maxFileSize: CONF.maxFileSize,
+            maxFileSize: CONF.maxFileSize || 10 * 1024 * 1024,
             multiples: true,
-            uploadDir: `${CONF.store_dir}/.tmp`,
+            uploadDir: `${CONF.storeDir}/.tmp`,
             keepExtensions: true,
             hash: 'md5'
         }

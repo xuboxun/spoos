@@ -2,9 +2,11 @@ const CONF = require('../config');
 const app = require('../src/app');
 const sequelize = require('../src/utils/sequelize');
 
+const appPort = CONF.appPort || 9981;
+
 function startApp() {
-    app.listen(CONF.app_port, () => {
-        console.log(`app started in port ${CONF.app_port}`);
+    app.listen(appPort, () => {
+        console.log(`app started in port ${appPort}`);
     });
 }
 

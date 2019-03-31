@@ -1,10 +1,10 @@
 const Sequelize = require('sequelize');
 const CONF = require('../../config');
 
-const sequelize = new Sequelize(CONF.db_name, CONF.db_username, CONF.db_password, {
-    host: CONF.db_host,
-    port: CONF.db_port,
-    dialect: CONF.db_type
+const sequelize = new Sequelize(CONF.dbName, CONF.dbUsername, CONF.dbPassword, {
+    host: CONF.dbHost || '127.0.0.1',
+    port: CONF.dbPort || 3306,
+    dialect: 'mysql'
 });
 
 module.exports = sequelize;

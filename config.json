@@ -1,19 +1,18 @@
 {
-  "db_type": "mysql",
-  "db_host": "localhost",
-  "db_port": 3306,
-  "db_name": "spoos",
-  "db_username": "root",
-  "db_password": "root806119",
+  "dbHost": "localhost",
+  "dbPort": 3306,
+  "dbName": "spoos",
+  "dbUsername": "root",
+  "dbPassword": "root806119",
 
-  "app_port": 9981,
+  "appPort": 9981,
 
-  "store_dir": "/Users/xuboxun/Data/spoos",
+  "storeDir": "/Users/xuboxun/Data/spoos",
 
-  "log_dir": "/Users/xuboxun/.spoos/log",
+  "logDir": "/Users/xuboxun/.spoos/log",
 
   "maxFileSize": 104857600,
 
-  "plugin_nginx": true,
+  "pluginNginx": true,
   "domain": "spoos.xuboxun.site"
 }

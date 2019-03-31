@@ -4,9 +4,9 @@ const path = require('path');
 const CONF = require('../config');
 
 const app_dir = path.resolve(__dirname, '../');
-const storeDir = CONF.store_dir;
-const storeTmpDir = `${CONF.store_dir}/.tmp`;
-const logDir = CONF.log_dir;
+const storeDir = CONF.storeDir;
+const storeTmpDir = `${CONF.storeDir}/.tmp`;
+const logDir = CONF.logDir;
 
 const MESSAGE = {
     LOG_DIR_EXIST: '日志目录已存在',
@@ -43,7 +43,17 @@ const mkDir = (dir) => {
     }
 }
 
+function checkConf() {
+    if (!CONF.storeDir || !CONF.logDir) {
+        return false;
+    }
+    return true;
+}
+
 function main() {
+    if (!checkConf()) {
+        return false;
+    }
     if (dirExist(storeTmpDir) && dirExist(logDir)) {
         console.log(MESSAGE.INSTALLED);
         return true;
