@@ -62,3 +62,6 @@ typings/
 
 
 .idea
+
+client/node_modules
+client/build
