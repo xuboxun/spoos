@@ -14,6 +14,12 @@ class Sidebar extends React.Component {
         };
     }
 
+    componentWillReceiveProps(nextProps, nextContext) {
+        this.setState({
+            active: nextProps.location.pathname
+        })
+    }
+
     handleMenuClick = ({ key }) => {
         this.props.history.push(key);
     }
@@ -31,7 +37,7 @@ class Sidebar extends React.Component {
                     <p>Spoos Client</p>
                     <p>简单面向个人的对象存储服务</p>
                 </div>
-                <Menu theme="dark" mode="inline" defaultSelectedKeys={[active]} onClick={this.handleMenuClick}>
+                <Menu theme="dark" mode="inline" selectedKeys={[active]} onClick={this.handleMenuClick}>
                     <Menu.Item key="/dashboard/home">
                         <Icon type="dashboard" />
                         <span className="nav-text">控制面板</span>

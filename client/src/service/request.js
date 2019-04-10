@@ -23,7 +23,7 @@ export default function request(options) {
         data,
     }).then(res => {
         console.log(res);
-       return res.data;
+        return res.data;
     }, err => {
         console.log(err);
         return {};

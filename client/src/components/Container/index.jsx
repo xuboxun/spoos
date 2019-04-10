@@ -6,8 +6,8 @@ import './container.css';
 import Sidebar from '../../components/Sidebar';
 
 import Dashboard from '../../views/Dashboard';
-import ApplicationCreate from '../../views/ApplicationCreate';
 import ApplicationList from '../../views/Application';
+import ApplicationCreate from '../../views/Application/create';
 import ApplicationDetail from '../../views/Application/detail';
 import DocCenter from '../../views/DocCenter';
 
@@ -20,7 +20,7 @@ class Container extends React.Component {
                 <Sidebar />
                 <Layout>
                     <Header style={{ background: '#fff', padding: 0 }} />
-                    <Content style={{ margin: '24px 16px 0' }}>
+                    <Content style={{ margin: '24px 16px 0', overflow: 'auto' }}>
                         <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
                             <Switch>
                                 <Redirect exact from='/dashboard' to='/dashboard/home'/>

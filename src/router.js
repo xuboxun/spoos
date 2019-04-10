@@ -12,6 +12,7 @@ router.post('/auth', AuthController.auth);
 router.get('/application/checkName', ApplicationController.checkName);
 router.post('/application/create', ApplicationController.create);
 router.get('/application/list', ApplicationController.list);
+// todo：获取某一应用详情
 router.delete('/application/:appKey', ApplicationController.delete);
 
 // todo：获取某一应用下的object列表接口
