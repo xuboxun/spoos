@@ -14,6 +14,7 @@ router.post('/application/create', ApplicationController.create);
 router.get('/application/list', ApplicationController.list);
 router.delete('/application/:appKey', ApplicationController.delete);
 
+// todo：获取某一应用下的object列表接口
 router.get('/object/list', ObjectController.list);
 router.get('/object/:appKey/:objectKey', ObjectController.get);
 router.post('/object/:appKey', ObjectController.post);

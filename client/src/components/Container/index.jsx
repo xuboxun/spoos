@@ -7,7 +7,8 @@ import Sidebar from '../../components/Sidebar';
 
 import Dashboard from '../../views/Dashboard';
 import ApplicationCreate from '../../views/ApplicationCreate';
-import ApplicationList from '../../views/ApplicationList';
+import ApplicationList from '../../views/Application';
+import ApplicationDetail from '../../views/Application/detail';
 import DocCenter from '../../views/DocCenter';
 
 const { Header, Content, Footer } = Layout;
@@ -26,6 +27,7 @@ class Container extends React.Component {
                                 <Route exact path="/dashboard/home" component={ Dashboard } />
                                 <Route exact path="/dashboard/application/create" component={ ApplicationCreate } />
                                 <Route exact path="/dashboard/application/list" component={ ApplicationList } />
+                                <Route exact path="/dashboard/application/detail/:appId" component={ ApplicationDetail } />
                                 <Route exact path="/dashboard/docs" component={ DocCenter } />
                             </Switch>
                         </div>

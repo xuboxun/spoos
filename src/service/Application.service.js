@@ -41,7 +41,9 @@ class ApplicationService {
             return null;
         });
     }
-    async getAppList(query = { pageSize: 10, pageNum: 1 }) {
+    async getAppList(query) {
+        const pageSize = query.pageSize || 10;
+        const pageNum = query.pageNum || 1;
         return await ApplicationModel.findAndCountAll({
             where: {
                 status: 1
@@ -49,8 +51,8 @@ class ApplicationService {
             attributes: {
                 exclude: ['appSecret']
             },
-            offset: (query.pageNum - 1) * query.pageSize,
-            limit: +query.pageSize
+            offset: (pageNum - 1) * pageSize,
+            limit: +pageSize
         }).catch(err => {
             log(err);
             return null;
