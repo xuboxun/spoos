@@ -1,6 +1,7 @@
 import React from 'react';
 import {List, message, Table, Button} from 'antd';
 import { getApplicationDetail, getApplicationObjects } from '../../service/application';
+import { getObjectDetailApi } from '../../service/object';
 
 class ApplicationDetail extends React.Component {
 
@@ -71,7 +72,7 @@ class ApplicationDetail extends React.Component {
     }
 
     handleReview = (record) => {
-        // window.open(`/object/${record.appKey}/${record.objectKey}`)
+        window.open(getObjectDetailApi(record.appKey, record.objectKey));
     }
 
     render() {
@@ -79,7 +80,6 @@ class ApplicationDetail extends React.Component {
         const { appId, appName, appInfo, appKey, appSecret, status, createTime, updateTime } = detail;
         const DetailData = [
             { key: '应用Id', value: appId },
-            { key: '应用名称', value: appName },
             { key: '应用信息', value: appInfo },
             { key: '应用Key', value: appKey },
             { key: '应用秘钥', value: appSecret },
@@ -143,8 +143,7 @@ class ApplicationDetail extends React.Component {
         return (
             <div>
                 <List
-                    size="small"
-                    header={<div style={{ fontSize: '20px' }}>应用信息</div>}
+                    header={<div style={{ fontSize: '20px' }}>{appName}：</div>}
                     footer={<div> </div>}
                     dataSource={DetailData}
                     renderItem={item => (

@@ -6,8 +6,11 @@
   "dependencies": {
     "koa": "^2.7.0",
     "koa-body": "^4.1.0",
+    "koa-mount": "^4.0.0",
     "koa-router": "^7.4.0",
     "koa-send": "^5.0.0",
+    "koa-static": "^5.0.0",
+    "koa2-history-api-fallback": "0.0.5",
     "md5": "^2.2.1",
     "mysql2": "^1.6.5",
     "pm2": "^3.4.0",

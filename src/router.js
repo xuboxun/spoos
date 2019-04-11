@@ -5,8 +5,6 @@ const ObjectController = require('./controller/object');
 
 const router = new Router();
 
-router.prefix('/api');
-
 router.post('/auth', AuthController.auth);
 
 /**

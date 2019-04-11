@@ -4,7 +4,7 @@ class Error extends React.Component {
     render() {
         return (
             <div>
-                Error
+                client: Error 404
             </div>
         )
     }

@@ -9,7 +9,7 @@ import Container from './components/Container';
 class App extends Component {
     render() {
         return (
-            <Router>
+            <Router basename="/client">
                 <Switch>
                     <Route exact path="/" component={ Index } />
                     <Route path="/dashboard" component={ Container } />
