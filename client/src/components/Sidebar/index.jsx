@@ -50,6 +50,14 @@ class Sidebar extends React.Component {
                         <Icon type="folder-add" />
                         <span className="nav-text">创建应用</span>
                     </Menu.Item>
+                    <Menu.Item key="/dashboard/object/list">
+                        <Icon type="profile" />
+                        <span className="nav-text">对象列表</span>
+                    </Menu.Item>
+                    <Menu.Item key="/dashboard/object/upload">
+                        <Icon type="cloud-upload" />
+                        <span className="nav-text">对象存储</span>
+                    </Menu.Item>
                     <Menu.Item key="/dashboard/docs">
                         <Icon type="file-markdown" />
                         <span className="nav-text">文档中心</span>

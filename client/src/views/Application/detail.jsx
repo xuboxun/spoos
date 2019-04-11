@@ -143,7 +143,7 @@ class ApplicationDetail extends React.Component {
         return (
             <div>
                 <List
-                    header={<div style={{ fontSize: '20px' }}>{appName}：</div>}
+                    header={<div style={{ fontSize: '20px' }}>{appName}</div>}
                     footer={<div> </div>}
                     dataSource={DetailData}
                     renderItem={item => (

@@ -9,6 +9,8 @@ import Dashboard from '../../views/Dashboard';
 import ApplicationList from '../../views/Application';
 import ApplicationCreate from '../../views/Application/create';
 import ApplicationDetail from '../../views/Application/detail';
+import ObjectList from '../../views/Object';
+import ObjectUpload from '../../views/Object/upload';
 import DocCenter from '../../views/DocCenter';
 
 const { Header, Content, Footer } = Layout;
@@ -28,6 +30,8 @@ class Container extends React.Component {
                                 <Route exact path="/dashboard/application/create" component={ ApplicationCreate } />
                                 <Route exact path="/dashboard/application/list" component={ ApplicationList } />
                                 <Route exact path="/dashboard/application/detail/:appId" component={ ApplicationDetail } />
+                                <Route exact path="/dashboard/object/list" component={ ObjectList } />
+                                <Route exact path="/dashboard/object/upload" component={ ObjectUpload } />
                                 <Route exact path="/dashboard/docs" component={ DocCenter } />
                             </Switch>
                         </div>

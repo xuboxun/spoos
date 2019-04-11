@@ -36,6 +36,7 @@ class ObjectService {
                 appKey,
                 status: 1
             },
+            order: [['createTime', 'DESC']],
             offset: (pageNum - 1) * pageSize,
             limit: +pageSize
         }).catch(err => {
