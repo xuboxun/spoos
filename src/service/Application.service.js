@@ -18,6 +18,16 @@ class ApplicationService {
         });
         return !!find;
     }
+    async getAppById(appId) {
+        return await ApplicationModel.findOne({
+            where: {
+                appId: appId,
+            }
+        }).catch(err => {
+            log(err);
+            return null;
+        });
+    }
     async getAppByKey(appKey) {
         return await ApplicationModel.findOne({
             where: {
@@ -45,9 +55,9 @@ class ApplicationService {
         const pageSize = query.pageSize || 10;
         const pageNum = query.pageNum || 1;
         return await ApplicationModel.findAndCountAll({
-            where: {
-                status: 1
-            },
+            // where: {
+            //     status: 1
+            // },
             attributes: {
                 exclude: ['appSecret']
             },
@@ -79,12 +89,12 @@ class ApplicationService {
 
     }
     // 删除应用，不从数据库删除，仅置status为0
-    async deleteApp(appKey) {
+    async deleteApp(appId) {
         return await ApplicationModel.update({
             status: 0
         }, {
             where: {
-                appKey: appKey,
+                appId: appId,
                 status: 1
             }
         }).catch(err => {

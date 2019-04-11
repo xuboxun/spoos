@@ -29,9 +29,9 @@ class ObjectController {
         });
     }
 
-    async list(ctx) {
+    async listAll(ctx) {
         const { pageSize, pageNum } = ctx.request.query;
-        const find = await ObjectService.getObjectList({
+        const find = await ObjectService.getAllObjectList({
             pageSize,
             pageNum
         });

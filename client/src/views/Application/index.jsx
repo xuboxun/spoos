@@ -9,58 +9,8 @@ class ApplicationList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            columns: [
-                {
-                    title: 'ID',
-                    dataIndex: 'appId',
-                    align: 'center',
-                    width: 50,
-                },
-                {
-                    title: '应用名称',
-                    dataIndex: 'appName',
-                    align: 'center',
-                },
-                {
-                    title: '应用信息',
-                    dataIndex: 'appInfo',
-                    align: 'center',
-                    width: 200,
-                },
-                {
-                    title: '状态',
-                    dataIndex: 'status',
-                    align: 'center',
-                    width: 80,
-                    render: (text) => text === 1 ? '运行中' : '已删除'
-                },
-                {
-                    title: '创建时间',
-                    dataIndex: 'createTime',
-                    align: 'center',
-                    width: 120,
-                    render: (text) => text ? (new Date(+text)).toLocaleDateString() : '-'
-                },
-                {
-                    title: '更新时间',
-                    dataIndex: 'updateTime',
-                    align: 'center',
-                    width: 120,
-                    render: (text) => text ? (new Date(+text)).toLocaleDateString() : '-'
-                },
-                {
-                    title: '操作',
-                    dataIndex: 'opt',
-                    align: 'center',
-                    width: 100,
-                    render: (text, record) => <Button size="small" type="dashed" onClick={() => this.handleSeeDetail(record) }>详情</Button>
-                }
-            ],
             data: [],
-            pager: {
-                simple: true,
-                total: 0
-            },
+            total: 0,
             query: {
                 type: 'appName',
                 keyword: '',
@@ -75,7 +25,7 @@ class ApplicationList extends React.Component {
     }
 
     searchApplicationList = () => {
-        getApplicationList().then(res => {
+        getApplicationList(this.state.query).then(res => {
             console.log(res);
             this.setState({
                 data: res.result.items.map(item => {
@@ -84,10 +34,7 @@ class ApplicationList extends React.Component {
                         key: item.appId
                     }
                 }),
-                pager: {
-                    ...this.state.pager,
-                    total: res.result.total
-                }
+                total: res.result.total
             });
         })
     }
@@ -104,8 +51,82 @@ class ApplicationList extends React.Component {
         //
     }
 
+    handleSearch = (value) => {
+        this.setState({
+            query: {
+                ...this.state.query,
+                keyword: value,
+                pageNum: 1,
+            }
+        }, this.searchApplicationList);
+    }
+
+    handlePagerChange = (page) => {
+        this.setState({
+            query: {
+                ...this.state.query,
+                pageNum: page.current,
+                pageSize: page.pageSize
+            }
+        }, this.searchApplicationList)
+    }
+
     render() {
-        const { columns, data, pager, query } = this.state;
+        const { data, query, total } = this.state;
+        const pager = {
+            simple: true,
+            total,
+            current: query.pageNum,
+            pageSize: query.pageSize
+        };
+        const columns = [
+            {
+                title: 'ID',
+                dataIndex: 'appId',
+                align: 'center',
+                width: 50,
+            },
+            {
+                title: '应用名称',
+                dataIndex: 'appName',
+                align: 'center',
+            },
+            {
+                title: '应用信息',
+                dataIndex: 'appInfo',
+                align: 'center',
+                width: 200,
+            },
+            {
+                title: '状态',
+                dataIndex: 'status',
+                align: 'center',
+                width: 80,
+                render: (text) => text === 1 ? '运行中' : '已删除'
+            },
+            {
+                title: '创建时间',
+                dataIndex: 'createTime',
+                align: 'center',
+                width: 120,
+                render: (text) => text ? (new Date(+text)).toLocaleDateString() : '-'
+            },
+            {
+                title: '更新时间',
+                dataIndex: 'updateTime',
+                align: 'center',
+                width: 120,
+                render: (text) => text ? (new Date(+text)).toLocaleDateString() : '-'
+            },
+            {
+                title: '操作',
+                dataIndex: 'opt',
+                align: 'center',
+                width: 100,
+                render: (text, record) => <Button size="small" type="dashed" onClick={() => this.handleSeeDetail(record) }>详情</Button>
+            }
+        ];
+
         return (
             <div>
                 <div style={{ marginBottom: '15px' }}>
@@ -115,12 +136,12 @@ class ApplicationList extends React.Component {
                     </Select>
                     <Search
                         placeholder="请输入检索内容"
-                        onSearch={value => console.log(value)}
+                        onSearch={this.handleSearch}
                         style={{ width: 200 }}
                     />
                     <Button type="primary" style={{ float: 'right' }} onClick={this.handleCreate}>新建应用</Button>
                 </div>
-                <Table bordered columns={columns} dataSource={data} pagination={pager} />
+                <Table bordered columns={columns} dataSource={data} pagination={pager} onChange={this.handlePagerChange} />
             </div>
         )
     }

@@ -1,5 +1,6 @@
 const response = require('../utils/response');
 const ApplicationService = require('../service/Application.service');
+const ObjectService = require('../service/Object.service');
 const { ListFormat } = require('../utils/format');
 const { createAppDir } = require('../utils/file');
 const log = require('../utils/log');
@@ -47,13 +48,52 @@ class ApplicationController {
         ctx.body = response(200, 'ok', ListFormat(find));
     }
 
-    async delete(ctx) {
-        const { appKey } = ctx.params;
-        if (!appKey) {
-            ctx.body = response(400, 'appKey cannot be null', null);
+    async detail(ctx) {
+        const { appId } = ctx.params;
+
+        if (!appId) {
+            ctx.body = response(400, 'appId cannot be null', null);
             return false;
         }
-        const res = await ApplicationService.deleteApp(appKey);
+
+        const application = await ApplicationService.getAppById(appId);
+        if (!application) {
+            ctx.body = response(400, 'application does not exist');
+            return false;
+        }
+        ctx.body = response(200, 'success', application);
+    }
+
+    async listObjects(ctx) {
+        const { appId } = ctx.params;
+        const { pageSize, pageNum } = ctx.request.query;
+
+        if (!appId) {
+            ctx.body = response(400, 'appId cannot be null', null);
+            return false;
+        }
+
+        const application = await ApplicationService.getAppById(appId);
+        if (!application) {
+            ctx.body = response(400, 'application does not exist');
+            return false;
+        }
+
+        const find = await ObjectService.getObjectsByAppkey({
+            appKey: application.appKey,
+            pageSize,
+            pageNum
+        });
+        ctx.body = response(200, 'ok', ListFormat(find));
+    }
+
+    async delete(ctx) {
+        const { appId } = ctx.params;
+        if (!appId) {
+            ctx.body = response(400, 'appId cannot be null', null);
+            return false;
+        }
+        const res = await ApplicationService.deleteApp(appId);
         if (!res || !res[0]) {
             ctx.body = response(500, 'delete failed', null);
         } else {

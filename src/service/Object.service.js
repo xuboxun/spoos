@@ -15,13 +15,29 @@ class ObjectService {
             return null;
         });
     }
-    async getObjectList(query = { pageSize: 50, pageNum: 1 }) {
+    async getAllObjectList(query = { pageSize: 50, pageNum: 1 }) {
         return await ObjectModel.findAndCountAll({
             where: {
                 status: 1
             },
             offset: (query.pageNum - 1) * query.pageSize,
             limit: +query.pageSize
+        }).catch(err => {
+            log(err);
+            return null;
+        });
+    }
+    async getObjectsByAppkey(query = {}) {
+        const appKey = query.appKey;
+        const pageSize = query.pageSize || 50;
+        const pageNum = query.pageNum || 1;
+        return await ObjectModel.findAndCountAll({
+            where: {
+                appKey,
+                status: 1
+            },
+            offset: (pageNum - 1) * pageSize,
+            limit: +pageSize
         }).catch(err => {
             log(err);
             return null;

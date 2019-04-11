@@ -5,6 +5,8 @@ export function getApplicationList(payload = {}) {
         method: 'get',
         url: '/api/application/list',
         params: {
+            type: payload.type,
+            keyword: payload.keyword,
             pageSize: payload.pageSize || 10,
             pageNum: payload.pageNum || 1,
         }
