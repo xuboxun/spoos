@@ -20,7 +20,7 @@ class ApplicationList extends React.Component {
         }
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.searchApplicationList();
     }
 

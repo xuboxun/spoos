@@ -13,10 +13,17 @@ export function getApplicationList(payload = {}) {
     });
 }
 
-export function getApplicationDetail() {
+export function getApplicationDetail(appId) {
     return request({
         method: 'get',
-        url: '/api/application/',
+        url: `/api/application/detail/${appId}`,
+    })
+}
+
+export function getApplicationObjects(appId) {
+    return request({
+        method: 'get',
+        url: `/api/application/objects/${appId}`
     })
 }
 
