@@ -2,17 +2,30 @@ import React from 'react';
 import { Button } from 'antd';
 import './index.css';
 import Login from './components/Login';
-import { getStorage } from "../../utils/storage";
+import { auth } from "../../service/user";
 
 class Index extends React.Component {
     constructor(props) {
         super(props);
-
-        const hasLogin = getStorage('user');
         this.state = {
             loginVisible: false,
-            logged: !!hasLogin
-        }
+            logged: false
+        };
+        this.checkLogin();
+    }
+
+    checkLogin = () => {
+        auth().then(res => {
+            if (res.code === 200 && res.result) {
+                this.setState({
+                    logged: true
+                })
+            } else {
+                this.setState({
+                    logged: false
+                })
+            }
+        })
     }
 
     handleLogin = () => {

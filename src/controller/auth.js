@@ -4,6 +4,14 @@ const response = require('../utils/response');
 
 class AuthController {
     async auth(ctx) {
+        if (ctx.session.account) {
+            ctx.body = response(200, 'auth success', ctx.session.account);
+        } else {
+            ctx.body = response(200, 'auth failed', false);
+        }
+    }
+
+    async login(ctx) {
         const { account, password } = ctx.request.body;
         if (!account || !password) {
             ctx.body = response(400, 'account or password cannot be null');
@@ -17,8 +25,13 @@ class AuthController {
             return false;
         }
 
-        // todo: session or token
+        ctx.session.account = dbRes.account;
         ctx.body = response(200, 'success', true);
+    }
+
+    async logout(ctx) {
+        ctx.session.account = null;
+        ctx.body = response(200, 'logout success', true);
     }
 }
 

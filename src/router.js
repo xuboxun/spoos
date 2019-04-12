@@ -5,7 +5,9 @@ const ObjectController = require('./controller/object');
 
 const router = new Router();
 
-router.post('/auth', AuthController.auth);
+router.get('/auth', AuthController.auth);
+router.post('/login', AuthController.login);
+router.get('/logout', AuthController.logout);
 
 /**
  * 私有接口
