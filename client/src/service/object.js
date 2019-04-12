@@ -14,3 +14,11 @@ export function getAllObjectList(payload = {}) {
         }
     });
 }
+
+export function uploadObject(payload) {
+    return request({
+        method: 'post',
+        url: `/api/object/${payload.appKey}`,
+        data: payload.data
+    })
+}

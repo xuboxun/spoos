@@ -14,5 +14,5 @@
   "maxFileSize": 104857600,
 
   "pluginNginx": true,
-  "domain": "spoos.xuboxun.site"
+  "domain": "http://spoos.xuboxun.site"
 }

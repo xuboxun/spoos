@@ -39,7 +39,7 @@ class ObjectController {
     }
 
     async post(ctx) {
-        const { host } = ctx.request.header;
+        const { origin } = ctx.request;
         const { appKey } = ctx.params;
         const { appSecret } = ctx.request.body;
         const files = ctx.request.files.files;
@@ -89,7 +89,7 @@ class ObjectController {
         }
         const res = {
             object: dbRes,
-            apiPath: `${host}/api/object/${appKey}/${object.objectKey}`,
+            apiPath: `${origin}/api/object/${appKey}/${object.objectKey}`,
             nginxPath: CONF.pluginNginx ? `${CONF.domain}/${appKey}/${object.objectName}` : undefined
         };
         ctx.body = response(200, 'ok', res);

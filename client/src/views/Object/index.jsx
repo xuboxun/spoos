@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Select, Input, Card, Row, Col, message} from "antd";
+import {Button, Select, Input, Card, Popover, List, Icon, Row, Col, message} from "antd";
 import ObjectPreview from '../../components/ObjectPreview';
 import { getApplicationList } from "../../service/application";
 import { getAllObjectList, getObjectDetailApi } from "../../service/object";
@@ -95,13 +95,45 @@ class ObjectList extends React.Component {
                     <Row gutter={20}>
                         {
                             objectList.map(item => {
+                                const { objectId, objectKey, appKey, type, sourceName, createTime, updateTime } = item;
+                                let size = (item.size / 1024).toFixed(2);
+                                size = size >= 1024 ? `${(size / 1024).toFixed(2)}M` : `${size}K`;
+                                const data = [
+                                    { key: 'appKey', value: appKey },
+                                    { key: 'objectKey', value: objectKey },
+                                    { key: '源名称', value: sourceName },
+                                    { key: '类型', value: type.substr(type.indexOf('/') + 1) },
+                                    { key: '大小', value: size },
+                                    { key: '创建时间', value: createTime ? (new Date(+createTime)).toLocaleDateString() : '-' },
+                                    { key: '更新时间', value: updateTime ? (new Date(+updateTime)).toLocaleDateString() : '-' },
+                                ];
                                 return (
-                                    <Col xs={12} sm={8} lg={6} xl={4} xxl={3} key={item.objectId} style={{ marginBottom: '15px' }}>
+                                    <Col xs={12} sm={8} lg={6} xl={4} xxl={3} key={objectId} style={{ marginBottom: '15px' }}>
                                         <Card style={{ display: 'inline-block', width: '100%' }}>
                                             <div style={{ height: '100px', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                                <ObjectPreview type={item.type} src={getObjectDetailApi(item.appKey, item.objectKey)} />
+                                                <ObjectPreview type={type} src={getObjectDetailApi(appKey, objectKey)} />
                                             </div>
-                                            <p>{item.type}</p>
+                                            <div style={{ marginTop: '10px' }}>
+                                                <Popover
+                                                    placement="right"
+                                                    title={null}
+                                                    arrowPointAtCenter
+                                                    trigger="hover"
+                                                    content={<List
+                                                        header={null}
+                                                        footer={null}
+                                                        size="small"
+                                                        dataSource={data}
+                                                        renderItem={item => (
+                                                            <List.Item>
+                                                                <span style={{ display: 'inline-block', width: '100px' }}>{item.key}：</span>
+                                                                {item.value}
+                                                            </List.Item>
+                                                        )}
+                                                    />}>
+                                                    <p style={{ textAlign: 'center', marginBottom: '0' }}><Icon type="eye" style={{ fontSize: '20px' }} /></p>
+                                                </Popover>
+                                            </div>
                                         </Card>
                                     </Col>
                                 )
