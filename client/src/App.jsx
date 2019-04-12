@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { Switch, Route } from 'react-router';
+import { Switch, Route, Redirect } from 'react-router';
+
 
 import Index from './views/Index';
 import Error from './views/Error';
@@ -13,7 +14,8 @@ class App extends Component {
                 <Switch>
                     <Route exact path="/" component={ Index } />
                     <Route path="/dashboard" component={ Container } />
-                    <Route component={Error} />
+                    <Route exact path="/error" component={Error} />
+                    <Redirect to="/error" />
                 </Switch>
             </Router>
         );

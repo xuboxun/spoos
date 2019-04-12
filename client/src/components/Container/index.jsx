@@ -12,10 +12,20 @@ import ApplicationDetail from '../../views/Application/detail';
 import ObjectList from '../../views/Object';
 import ObjectUpload from '../../views/Object/upload';
 import DocCenter from '../../views/DocCenter';
+import {getStorage} from "../../utils/storage";
 
 const { Header, Content, Footer } = Layout;
 
 class Container extends React.Component {
+
+    constructor(props) {
+        super(props);
+        const hasLogin = getStorage('user');
+        if (!hasLogin) {
+            this.props.history.push('/');
+        }
+    }
+
     render() {
         return (
             <Layout className="container">
@@ -33,6 +43,7 @@ class Container extends React.Component {
                                 <Route exact path="/dashboard/object/list" component={ ObjectList } />
                                 <Route exact path="/dashboard/object/upload" component={ ObjectUpload } />
                                 <Route exact path="/dashboard/docs" component={ DocCenter } />
+                                <Redirect to='/error' />
                             </Switch>
                         </div>
                     </Content>

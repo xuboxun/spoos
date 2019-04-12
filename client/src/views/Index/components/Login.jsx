@@ -1,15 +1,48 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { Modal, Button } from 'antd';
+import { Modal, Button, Input, message } from 'antd';
+import { login } from '../../../service/user';
+import { setStorage } from "../../../utils/storage";
 
 class Login extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            account: '',
+            password: ''
+        }
+    }
+
+    handleAccountChange = (e) => {
+        this.setState({
+            account: e.target.value
+        })
+    }
+
+    handlePasswordChange = (e) => {
+        this.setState({
+            password: e.target.value
+        })
     }
 
     handleLogin = () => {
-        // todo: 发送登录请求
-        this.props.history.push('/dashboard');
+        const { account, password } = this.state;
+        if (account && password) {
+            login({
+                account,
+                password
+            }).then(res => {
+                if (res.code === 200 && res.result) {
+                    // todo: 服务端返回用户信息
+                    setStorage('user', account);
+                    this.props.history.push('/dashboard');
+                } else {
+                    message.error(`登录失败，请重试：${res.msg}`);
+                }
+            })
+        } else {
+            message.warning('请填写登录信息');
+        }
     }
 
     handleCancel = () => {
@@ -20,16 +53,23 @@ class Login extends React.Component {
         const { visible } = this.props;
         return (
             <Modal
-                title="Title"
+                title="登录"
                 visible={visible}
                 onCancel={this.handleCancel}
                 footer={null}
             >
                 <div>
-                    <p>login</p>
                     <div>
-                        <Button onClick={this.handleLogin}>登录</Button>
-                        <Button onClick={this.handleCancel}>取消</Button>
+                        <p>
+                            <Input placeholder="用户名" onChange={this.handleAccountChange}/>
+                        </p>
+                        <p>
+                            <Input.Password placeholder="密码" onChange={this.handlePasswordChange} />
+                        </p>
+                    </div>
+                    <div style={{ textAlign: 'right' }}>
+                        <Button type="primary" onClick={this.handleLogin}>登录</Button>
+                        <Button onClick={this.handleCancel} style={{ marginLeft: '10px' }}>取消</Button>
                     </div>
                 </div>
             </Modal>
