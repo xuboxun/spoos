@@ -35,6 +35,10 @@ class ApplicationController {
 
     async checkName(ctx) {
         const { appName } = ctx.request.query;
+        if (!appName) {
+            ctx.body = response(400, 'appName cannot be null', null);
+            return false;
+        }
         const exist = await ApplicationService.isNameExist(appName);
         ctx.body = response(200, 'ok', exist);
     }
