@@ -10,7 +10,7 @@ router.post('/login', AuthController.login);
 router.get('/logout', AuthController.logout);
 
 /**
- * 私有接口
+ * 私有接口, 需要auth校验
  * appId应用于私有
  * */
 router.get('/application/checkName', ApplicationController.checkName);
@@ -21,7 +21,8 @@ router.post('/application/create', ApplicationController.create);
 router.delete('/application/:appId', ApplicationController.delete);
 
 router.get('/object/list', ObjectController.listAll);
-// todo：获取某一应用下的object列表接口
+
+
 /**
  * 开放接口
  * appKey应用于对外
