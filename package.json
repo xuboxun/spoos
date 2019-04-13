@@ -23,9 +23,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "install": "node ./bin/install.js",
-    "start": "pm2 start ./bin/run.js",
-    "stop": "pm2 stop ./bin/run.js",
-    "dev": "nodemon ./bin/run.js"
+    "start": "pm2 start bin/spoos.js",
+    "stop": "pm2 stop bin/spoos.js",
+    "dev": "nodemon bin/spoos.js"
   },
   "repository": {
     "type": "git",
