@@ -7,9 +7,9 @@
 
   "appPort": 9981,
 
-  "storeDir": "~/Data/spoos",
+  "storeDir": "/data/spoos",
 
-  "logDir": "~/.spoos/log",
+  "logDir": "/data/spoos/.log",
 
   "maxFileSize": 104857600,
 
