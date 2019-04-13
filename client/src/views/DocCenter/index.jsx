@@ -4,7 +4,7 @@ class DocCenter extends React.Component {
     render() {
         return (
             <div>
-                DocCenter
+                文档中心 - 待完善
             </div>
         )
     }

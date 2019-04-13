@@ -2,7 +2,6 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Modal, Button, Input, message } from 'antd';
 import { login } from '../../../service/user';
-import { setStorage } from "../../../utils/storage";
 
 class Login extends React.Component {
     constructor(props) {
@@ -33,8 +32,6 @@ class Login extends React.Component {
                 password
             }).then(res => {
                 if (res.code === 200 && res.result) {
-                    // todo: 服务端返回用户信息
-                    setStorage('user', account);
                     this.props.history.push('/dashboard');
                 } else {
                     message.error(`登录失败，请重试：${res.msg}`);

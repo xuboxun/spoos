@@ -24,6 +24,10 @@ class Sidebar extends React.Component {
         this.props.history.push(key);
     }
 
+    handleGoIndex = () => {
+        this.props.history.push('/');
+    }
+
     render() {
         const { active } = this.state;
         return (
@@ -34,7 +38,7 @@ class Sidebar extends React.Component {
                 onCollapse={(collapsed, type) => { console.log(collapsed, type); }}
             >
                 <div className="logo">
-                    <p>Spoos Client</p>
+                    <p style={{ cursor: 'pointer' }} onClick={this.handleGoIndex}>Spoos Client</p>
                     <p>简单面向个人的对象存储服务</p>
                 </div>
                 <Menu theme="dark" mode="inline" selectedKeys={[active]} onClick={this.handleMenuClick}>
