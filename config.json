@@ -2,14 +2,14 @@
   "dbHost": "localhost",
   "dbPort": 3306,
   "dbName": "spoos",
-  "dbUsername": "root",
-  "dbPassword": "root806119",
+  "dbUsername": "dev",
+  "dbPassword": "123456",
 
   "appPort": 9981,
 
-  "storeDir": "/Users/xuboxun/Data/spoos",
+  "storeDir": "~/Data/spoos",
 
-  "logDir": "/Users/xuboxun/.spoos/log",
+  "logDir": "~/.spoos/log",
 
   "maxFileSize": 104857600,
 

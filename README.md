@@ -16,7 +16,8 @@ Simple, Personal Oriented Object Storage. Based on Nodejs.
 - 可零后端开发
   
 技术选型：
-- Node + Koa + MySQL + react
+- Server: Node + Koa + MySQL
+- Client: React
 
 ## 部署运行
 #### 下载
@@ -24,6 +25,10 @@ Simple, Personal Oriented Object Storage. Based on Nodejs.
 git clone https://github.com/xuboxun/spoos.git
 cd spoos
 npm install
+# 构建客户端
+cd client
+npm install
+npm run build
 ```
 
 #### 导入数据库
