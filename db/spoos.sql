@@ -33,7 +33,7 @@ CREATE TABLE `application` (
   PRIMARY KEY (`appId`),
   UNIQUE KEY `application_appKey_uindex` (`appKey`),
   UNIQUE KEY `application_appName_uindex` (`appName`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Table structure for object
@@ -55,7 +55,7 @@ CREATE TABLE `object` (
   UNIQUE KEY `object_objectKey_uindex` (`objectKey`),
   KEY `object_application_appKey_fk` (`appKey`),
   CONSTRAINT `object_application_appKey_fk` FOREIGN KEY (`appKey`) REFERENCES `application` (`appKey`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Table structure for user
@@ -69,6 +69,6 @@ CREATE TABLE `user` (
   `updateTime` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`userId`),
   UNIQUE KEY `user_account_uindex` (`account`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 SET FOREIGN_KEY_CHECKS = 1;
