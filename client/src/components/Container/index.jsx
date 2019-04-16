@@ -31,7 +31,7 @@ class Container extends React.Component {
             if (res.code === 200 && res.result) {
                 // 已登录
                 this.setState({
-                    account: res.result
+                    account: res.result.account
                 });
             } else {
                 this.props.history.push('/');

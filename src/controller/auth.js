@@ -5,7 +5,10 @@ const response = require('../utils/response');
 class AuthController {
     async auth(ctx) {
         if (ctx.session.account) {
-            ctx.body = response(200, 'auth success', ctx.session.account);
+            const userInfo = {
+                account: ctx.session.account
+            };
+            ctx.body = response(200, 'auth success', userInfo);
         } else {
             ctx.body = response(200, 'auth failed', false);
         }
@@ -19,13 +22,13 @@ class AuthController {
         }
 
         const md5Password = md5(password);
-        const dbRes = await UserService.checkAccountPassword(account, md5Password);
-        if (!dbRes) {
+        const auth = UserService.checkAccountPassword(account, md5Password);
+        if (!auth) {
             ctx.body = response(200, 'auth failed', false);
             return false;
         }
 
-        ctx.session.account = dbRes.account;
+        ctx.session.account = auth.account;
         ctx.body = response(200, 'success', true);
     }
 

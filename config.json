@@ -1,14 +1,16 @@
 {
+  "appUserName": "spoos",
+  "appUserPassword": "b55963d4ce6a31ce1db293516966c755",
+
+  "appPort": 9981,
+
   "dbHost": "localhost",
   "dbPort": 3306,
   "dbName": "spoos",
   "dbUsername": "dev",
   "dbPassword": "123456",
 
-  "appPort": 9981,
-
   "storeDir": "/data/spoos",
-
   "logDir": "/data/spoos/.log",
 
   "maxFileSize": 104857600,

@@ -57,18 +57,4 @@ CREATE TABLE `object` (
   CONSTRAINT `object_application_appKey_fk` FOREIGN KEY (`appKey`) REFERENCES `application` (`appKey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- ----------------------------
--- Table structure for user
--- ----------------------------
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-  `userId` int(11) NOT NULL AUTO_INCREMENT,
-  `account` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `createTime` bigint(20) NOT NULL,
-  `updateTime` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`userId`),
-  UNIQUE KEY `user_account_uindex` (`account`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 SET FOREIGN_KEY_CHECKS = 1;
