@@ -5,31 +5,33 @@ const ObjectController = require('./controller/object');
 
 const router = new Router();
 
-router.get('/auth', AuthController.auth);
-router.post('/login', AuthController.login);
-router.get('/logout', AuthController.logout);
+router.get('/api/auth', AuthController.auth);
+router.post('/api/login', AuthController.login);
+router.get('/api/logout', AuthController.logout);
 
 /**
  * 私有接口, 需要auth校验
  * appId应用于私有
  * */
-router.get('/application/checkName', ApplicationController.checkName);
-router.get('/application/list', ApplicationController.list);
-router.get('/application/detail/:appId', ApplicationController.detail);
-router.get('/application/objects/:appId', ApplicationController.listObjects);
-router.post('/application/create', ApplicationController.create);
-router.delete('/application/:appId', ApplicationController.delete);
+router.get('/api/application/checkName', ApplicationController.checkName);
+router.get('/api/application/list', ApplicationController.list);
+router.get('/api/application/detail/:appId', ApplicationController.detail);
+router.get('/api/application/objects/:appId', ApplicationController.listObjects);
+router.post('/api/application/create', ApplicationController.create);
+router.delete('/api/application/:appId', ApplicationController.delete);
 
-router.get('/object/list', ObjectController.listAll);
+router.get('/api/object/list', ObjectController.listAll);
 
 
 /**
  * 开放接口
  * appKey应用于对外
  * */
-router.get('/object/:appKey/:objectKey', ObjectController.get);
-router.post('/object/:appKey', ObjectController.post);
-router.put('/object/:appKey/:objectKey', ObjectController.put);
-router.delete('/object/:appKey/:objectKey', ObjectController.delete);
+
+// 可用于cdn缓存/api/static目录
+router.get('/api/static/:appKey/:objectKey', ObjectController.get);
+router.post('/api/object/:appKey', ObjectController.post);
+router.put('/api/object/:appKey/:objectKey', ObjectController.put);
+router.delete('/api/object/:appKey/:objectKey', ObjectController.delete);
 
 module.exports = router;

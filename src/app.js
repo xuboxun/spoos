@@ -21,7 +21,7 @@ const SessionConfig = {
 app.use(session(SessionConfig, app));
 
 app.use(mount('/client', client));
-app.use(mount('/api', api));
+app.use(mount('/', api));
 
 
 module.exports = app;

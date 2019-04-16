@@ -89,8 +89,8 @@ class ObjectController {
         }
         const res = {
             object: dbRes,
-            apiPath: `${origin}/api/object/${appKey}/${object.objectKey}`,
-            nginxPath: CONF.pluginNginx ? `${CONF.domain}/${appKey}/${object.objectName}` : undefined
+            apiPath: `${origin}/api/static/${appKey}/${object.objectKey}`,
+            nginxPath: CONF.pluginNginx ? `${origin}/static/${appKey}/${object.objectName}` : undefined
         };
         ctx.body = response(200, 'ok', res);
     }
