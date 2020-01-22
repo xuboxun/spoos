@@ -121,8 +121,26 @@ class ObjectUpload extends React.Component {
             const { appKey, objectId, objectKey, objectName, sourceName, type, size, hash, createTime } = object;
 
             const uploadData = [
-                { key: 'api访问地址', value: apiPath },
-                { key: 'nginx访问地址', value: nginxPath },
+                {
+                  key: 'api访问地址',
+                  value: apiPath,
+                  append: (
+                    <React.Fragment>
+                      <Button>复制地址</Button>
+                      <Button>二维码</Button>
+                    </React.Fragment>
+                  )
+                },
+                {
+                  key: 'nginx访问地址',
+                  value: nginxPath,
+                  append: (
+                    <React.Fragment>
+                      <Button>复制地址</Button>
+                      <Button>二维码</Button>
+                    </React.Fragment>
+                  )
+                },
                 { key: '应用名称', value: appName },
                 { key: 'appKey', value: appKey },
                 { key: 'objectId', value: objectId },
@@ -142,7 +160,14 @@ class ObjectUpload extends React.Component {
                     renderItem={item => (
                         <List.Item>
                             <span style={{ display: 'inline-block', width: '150px' }}>{item.key}：</span>
-                            {item.value}
+                            <span style={{
+                              maxWidth: '100%',
+                              overflow: 'hidden', 
+                              textOverflow: 'ellipsis',
+                              display: 'inline-block'
+                            }}>
+                              {item.value}
+                            </span>
                         </List.Item>
                     )}
                 />
