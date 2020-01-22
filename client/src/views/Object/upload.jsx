@@ -1,12 +1,50 @@
 import React from 'react';
-import {Upload, Icon, message, Select, Button, List, Empty} from 'antd';
+import {Upload, Icon, message, Select, Button, List, Empty, Modal} from 'antd';
 import filesize from 'filesize';
+import QRCode from 'qrcode.react';
+import copy from 'copy-to-clipboard';
 import ObjectPreview from '../../components/ObjectPreview';
 import {getApplicationDetail, getApplicationList} from "../../service/application";
 import {uploadObject} from "../../service/object";
 
 const Option = Select.Option;
 const Dragger = Upload.Dragger;
+
+const UrlOperator = ({ url }) => {
+    const handleCopyUrl = () => {
+        copy(url);
+        message.success('链接copy成功')
+    }
+
+    const handleShowQrCode = () => {
+        Modal.info({
+            title: (
+              <h2 style={{ fontSize: 20, fontWeight: 400, textAlign: 'center' }}>二维码</h2>
+            ),
+            content: (
+              <div style={{ textAlign: 'center', marginBottom: 25 }}>
+                  <div style={{ display: 'inline-block', padding: 6, paddingBottom: 1, border: '1px solid #e2e2e2', borderRadius: 3 }}>
+                      <QRCode value={url} size={256} bgColor="white" />
+                  </div>
+              </div>
+            ),
+            centered: true,
+            maskClosable: true,
+            icon: null,
+            okText: '确定',
+            okButtonProps: {
+                type: 'default',
+                style: { position: 'absolute', left: '50%', bottom: 20, transform: 'translate(-50%, 0)' }
+            }
+        })
+    }
+    return (
+      <React.Fragment>
+          <Button onClick={handleCopyUrl} icon="copy" size="small">复制</Button>
+          <Button onClick={handleShowQrCode} icon="qrcode" size="small" style={{ marginLeft: 5 }}>二维码</Button>
+      </React.Fragment>
+    )
+}
 
 class ObjectUpload extends React.Component {
 
@@ -122,24 +160,14 @@ class ObjectUpload extends React.Component {
 
             const uploadData = [
                 {
-                  key: 'api访问地址',
-                  value: apiPath,
-                  append: (
-                    <React.Fragment>
-                      <Button>复制地址</Button>
-                      <Button>二维码</Button>
-                    </React.Fragment>
-                  )
+                    key: 'api访问地址',
+                    value: apiPath,
+                    append: <UrlOperator url={apiPath} />
                 },
                 {
-                  key: 'nginx访问地址',
-                  value: nginxPath,
-                  append: (
-                    <React.Fragment>
-                      <Button>复制地址</Button>
-                      <Button>二维码</Button>
-                    </React.Fragment>
-                  )
+                    key: 'nginx访问地址',
+                    value: nginxPath,
+                    append: <UrlOperator url={nginxPath} />
                 },
                 { key: '应用名称', value: appName },
                 { key: 'appKey', value: appKey },
@@ -159,15 +187,21 @@ class ObjectUpload extends React.Component {
                     dataSource={uploadData}
                     renderItem={item => (
                         <List.Item>
-                            <span style={{ display: 'inline-block', width: '150px' }}>{item.key}：</span>
-                            <span style={{
-                              maxWidth: '100%',
-                              overflow: 'hidden', 
-                              textOverflow: 'ellipsis',
-                              display: 'inline-block'
-                            }}>
-                              {item.value}
+                            <span style={{ display: 'inline-block', width: '150px', flex: '0 0 auto' }}>{item.key}：</span>
+                            <span
+                                style={{
+                                    maxWidth: '100%',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                    whiteSpace: 'nowrap',
+                                    display: 'inline-block',
+                                    marginRight: 10,
+                                    marginBottom: 5
+                                }}
+                            >
+                                {item.value}
                             </span>
+                            {item.append ? item.append : null}
                         </List.Item>
                     )}
                 />
@@ -192,7 +226,7 @@ class ObjectUpload extends React.Component {
                 <Select
                     placeholder="请选择应用"
                     allowClear
-                    style={{ width: 400, marginRight: '10px' }}
+                    style={{ width: 400, maxWidth: '100%', marginRight: '10px' }}
                     onChange={this.handleTypeChange}>
                     {
                         applicationList.map(item => <Option value={item.appId} key={item.appId}>{item.appName}</Option>)
