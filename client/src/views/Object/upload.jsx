@@ -1,5 +1,6 @@
 import React from 'react';
 import {Upload, Icon, message, Select, Button, List, Empty} from 'antd';
+import filesize from 'filesize';
 import ObjectPreview from '../../components/ObjectPreview';
 import {getApplicationDetail, getApplicationList} from "../../service/application";
 import {uploadObject} from "../../service/object";
@@ -119,8 +120,6 @@ class ObjectUpload extends React.Component {
             const { apiPath, nginxPath, object } = uploadResult;
             const { appKey, objectId, objectKey, objectName, sourceName, type, size, hash, createTime } = object;
 
-            let sizeFormat = (size / 1024).toFixed(2);
-            sizeFormat = size >= 1024 ? `${(size / 1024).toFixed(2)}M` : `${size}K`;
             const uploadData = [
                 { key: 'api访问地址', value: apiPath },
                 { key: 'nginx访问地址', value: nginxPath },
@@ -132,7 +131,7 @@ class ObjectUpload extends React.Component {
                 { key: 'hash', value: hash },
                 { key: '源名称', value: sourceName },
                 { key: '类型', value: type.substr(type.indexOf('/') + 1) },
-                { key: '大小', value: sizeFormat },
+                { key: '大小', value: filesize(size) },
                 { key: '创建时间', value: createTime ? (new Date(+createTime)).toLocaleDateString() : '-' },
             ];
             return <div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import {List, message, Table, Button} from 'antd';
+import filesize from 'filesize';
 import { getApplicationDetail, getApplicationObjects } from '../../service/application';
 import { getObjectDetailApi } from '../../service/object';
 
@@ -182,7 +183,7 @@ class ApplicationDetail extends React.Component {
                                 <p style={{ display: 'inline-block', width: '50%' }}>
                                     <span style={{ display: 'inline-block', width: '100px', textAlign: 'right' }}>文件大小：</span>
                                     {
-                                        size >= 1024 ? `${(size / 1024).toFixed(2)}M` : `${size}K`
+                                        filesize(size)
                                     }
                                 </p>
                             </div>
