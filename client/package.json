@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "antd": "^3.26.7",
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "copy-to-clipboard": "^3.2.0",
     "filesize": "^6.0.1",
     "qrcode.react": "^1.0.0",
